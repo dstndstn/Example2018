@@ -13,7 +13,13 @@ using Example2018
 
 @test 1 == 1
 
-z = Polynomial([0])
-p = Polynomial([1,2,3])
-
-@test p+z == p
+@testset "Polynomials form a ring" begin
+  z = Polynomial([0])
+  for n in 1:100
+    deg = rand(0:100)
+    p = Polynomial(rand(-1000:1000, deg+1))
+    @test p+z == p
+    @test z+p == p
+    @test p + (-p) == z
+  end
+end
